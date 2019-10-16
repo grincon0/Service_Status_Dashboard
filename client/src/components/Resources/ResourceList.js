@@ -57,8 +57,6 @@ const ResourceList = props => {
         }
     };
 
-
-
     const getVendorList = useCallback(() => {
         console.log('running getVendorList');
 
@@ -79,7 +77,8 @@ const ResourceList = props => {
 
     return (
         <section style={sectionStyle}>
-            <h1 onClick={handleCollapse} style={headerStyle}>{props.name}</h1><LoadingText loadStatus={props.loadStatus} />
+            <h1 onClick={handleCollapse} style={headerStyle}>{props.name}</h1>
+            {props.loadStatus && <LoadingText loadStatus={props.loadStatus} />}
             <div>
                 <div id="SERVICE-LIST" className={`vendor-services ${collapseClass}`}>
                     <div>

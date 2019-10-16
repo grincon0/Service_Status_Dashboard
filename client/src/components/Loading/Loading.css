@@ -38,7 +38,7 @@
   }
 
   .loading-done{
-    opacity: 0;
+   opacity: 0;
   }
   @keyframes lds-ring {
     0% {

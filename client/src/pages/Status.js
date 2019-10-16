@@ -115,7 +115,6 @@ const Status = () => {
         API.getAtlassianStatus()
         .then(res => {
             console.log(res.data);
-            //setAtlasData(res.data);
             dispatchAtlassian({type:'RESPONSE', data: res.data, status:'DONE'})
         }).catch(error => {
             console.log(error);
@@ -137,17 +136,14 @@ const Status = () => {
                 <div>
                     <ResourceList 
                     data={statuses} 
-                    name="Iterable"
-                    loadStatus={atlassianData.responseStatus}
-                    >
-                        {/*  {resourceList} */}
-                    </ResourceList>
+                    name="Iterable"/>
+                       
                     <ResourceList 
                     data={atlassianData.data} 
                     name="Atlassian"
                     loadStatus={atlassianData.responseStatus}
-                    >
-                    </ResourceList>
+                    />
+                   
                     <div style={buttonContainerStyle}>
                         <button style={buttonStyle} onClick={scrapeIterable}>Refresh</button>
                         <button style={buttonAtlassianStyle} onClick={scrapeAtlassian}>Scrape</button>
