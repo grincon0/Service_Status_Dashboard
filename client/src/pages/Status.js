@@ -2,7 +2,8 @@ import React, { useReducer, useCallback, useEffect, useMemo } from 'react';
 import ResourceList from '../components/Resources/ResourceList';
 import useScraper from '../utils/Scraper';
 import Vendor from '../components/Resources/Vendor';
-import Loading from '../components/Loading/Loading'
+import Loading from '../components/Loading/Loading';
+import API from '../utils/API';
 
 
 const containerStyle = {
@@ -20,6 +21,24 @@ const buttonStyle = {
     border: '0',
     color: 'white',
     fontSize: '16px'
+
+}
+
+const buttonAtlassianStyle = {
+    width: '120px',
+    height: '30px',
+    backgroundColor: '#cf79d9',
+    borderRadius: '9px',
+    border: '0',
+    color: 'white',
+    fontSize: '16px',
+    marginLeft: '10px',
+    marginRight: '10px'
+}
+
+const buttonContainerStyle = {
+    display: 'flex',
+    flexDirection: 'row'
 }
 
 const statusReducer = (currentVendors, action) => {
@@ -53,19 +72,29 @@ const Status = () => {
         scrape();
     }, [scrape]);
 
+    const scrapeAtlassian = () => {
+        API.getAtlassianStatus()
+        .then(res => {
+            console.log(res.data);
+        });
+    }
+
     return (
         <div style={containerStyle}>
-
             {isLoading && <Loading />}
             {!isLoading && data &&
-            <div>
-            <ResourceList data={statuses} name="Iterable">
-               {/*  {resourceList} */}
-            </ResourceList>
-            <button style={buttonStyle} onClick={scrapeIterable}>Refresh</button>
-            </div>
-        
-        }
+                <div>
+                    <ResourceList data={statuses} name="Iterable">
+                        {/*  {resourceList} */}
+                    </ResourceList>
+                    <div style={buttonContainerStyle}>
+                        <button style={buttonStyle} onClick={scrapeIterable}>Refresh</button>
+                        <button style={buttonAtlassianStyle} onClick={scrapeAtlassian}>Scrape</button>
+                    </div>
+
+                </div>
+
+            }
         </div>
     )
 }

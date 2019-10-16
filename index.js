@@ -7,7 +7,7 @@ const app = express();
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-app.get('/api/scrape_atlassian', (req, res) => {
+app.get('/api/scrape', (req, res) => {
     res.json({
         "message": "API is operational"
     });
