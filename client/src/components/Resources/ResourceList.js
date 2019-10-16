@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import Vendor from './Vendor';
+import LoadingText from '../Loading/LoadingText';
 import './style.css';
 
 const sectionStyle = {
@@ -68,7 +69,7 @@ const ResourceList = props => {
             }
 
             const elementList = props.data.map((vendor, i) => (
-                <Vendor collapseClass={collapseClass} operational={handleVendorStatus(vendor.status)} key={i} name={vendor.name} status={vendor.status} />
+                <Vendor collapseClass={collapseClass} operational={handleVendorStatus(vendor.status)} key={i} name={vendor.name} status={vendor.status.toUpperCase()} />
             ));
 
             setElements(elementList)
@@ -77,8 +78,8 @@ const ResourceList = props => {
     }, [props.data]);
 
     return (
-        <section className="balls" style={sectionStyle}>
-            <h1 onClick={handleCollapse} style={headerStyle}>{props.name}</h1>
+        <section style={sectionStyle}>
+            <h1 onClick={handleCollapse} style={headerStyle}>{props.name}</h1><LoadingText loadStatus={props.loadStatus} />
             <div>
                 <div id="SERVICE-LIST" className={`vendor-services ${collapseClass}`}>
                     <div>

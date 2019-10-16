@@ -28,6 +28,18 @@
   .lds-ring div:nth-child(3) {
     animation-delay: -0.15s;
   }
+
+  .loading-text {
+    animation: loadingText 1s ease infinite alternate;
+  }
+
+  .bad-text{
+    color:"#e81a1a"
+  }
+
+  .loading-done{
+    opacity: 0;
+  }
   @keyframes lds-ring {
     0% {
       transform: rotate(0deg);
@@ -36,3 +48,15 @@
       transform: rotate(360deg);
     }
   }
+
+
+
+  @keyframes loadingText{
+    0%{
+      opacity: 100%;
+    }
+    100%{
+      opacity: 50%
+    }
+
+}  
