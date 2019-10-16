@@ -1,4 +1,4 @@
-import React, { useReducer, useCallback, useEffect, useMemo } from 'react';
+import React, { useReducer, useState, useCallback, useEffect, useMemo } from 'react';
 import ResourceList from '../components/Resources/ResourceList';
 import useScraper from '../utils/Scraper';
 import Vendor from '../components/Resources/Vendor';
@@ -54,6 +54,7 @@ const statusReducer = (currentVendors, action) => {
 const Status = () => {
 
     const [statuses, dispatch] = useReducer(statusReducer, null);
+    const [atlasData, setAtlasData] = useState(null);
     const { hasScraped, scrape, scraperData, isLoading, data } = useScraper();
 
     useEffect(() => {
@@ -64,10 +65,6 @@ const Status = () => {
         }
     }, [data, scrape, hasScraped])
 
-    /*     useEffect(()=> {
-           console.log(statuses);
-        }, [statuses]) */
-
     const scrapeIterable = useCallback(() => {
         scrape();
     }, [scrape]);
@@ -76,6 +73,8 @@ const Status = () => {
         API.getAtlassianStatus()
         .then(res => {
             console.log(res.data);
+            setAtlasData(res.data);
+
         });
     }
 
@@ -87,6 +86,10 @@ const Status = () => {
                     <ResourceList data={statuses} name="Iterable">
                         {/*  {resourceList} */}
                     </ResourceList>
+                    <ResourceList data={atlasData} name="Atlassian">
+
+                    </ResourceList>
+
                     <div style={buttonContainerStyle}>
                         <button style={buttonStyle} onClick={scrapeIterable}>Refresh</button>
                         <button style={buttonAtlassianStyle} onClick={scrapeAtlassian}>Scrape</button>
