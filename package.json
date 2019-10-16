@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "concurrently \" nodemon index.js \" \" cd client && npm start \"",
-    "install": "npm install && cd client && npm install",
+    "install": "cd client && npm install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "George Rincon",
