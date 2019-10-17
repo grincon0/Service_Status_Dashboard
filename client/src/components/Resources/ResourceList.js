@@ -21,7 +21,8 @@ const headerStyle = {
 const titleStyle = {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    cursor: 'pointer'
 }
 
 
@@ -44,7 +45,7 @@ const ResourceList = props => {
 
 
     const handleCollapse = () => {
-        console.log(collapseClass);
+        //console.log(collapseClass);
         switch (collapseClass) {
             case '':
                 setCollapse('collapse')
@@ -81,8 +82,8 @@ const ResourceList = props => {
 
     return (
         <section style={sectionStyle}>
-            <div style={titleStyle}>
-                <h1 onClick={handleCollapse} style={headerStyle}>{props.name}</h1>
+            <div onClick={handleCollapse} style={titleStyle}>
+                <h1 style={headerStyle}>{props.name}</h1>
                 {props.loadStatus && <LoadingText loadStatus={props.loadStatus} />}
             </div>
             <div>

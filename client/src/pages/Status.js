@@ -68,6 +68,11 @@ const atlassianReducer = (currentAtlassianState, action) => {
                 data: action.data,
                 responseStatus: action.status
             }
+        case 'UPDATE':
+            return{
+                ...currentAtlassianState,
+                responseStatus: action.status
+            }
         case 'BAD_RESULT':
             return{
                 ...currentAtlassianState,
@@ -108,10 +113,9 @@ const Status = () => {
         dispatchAtlassian({type:'GETTING', status: 'LOADING'});
         API.getAtlassianStatus()
         .then(res => {
-            //console.log(res.data);
             dispatchAtlassian({type:'RESPONSE', data: res.data, status:'DONE'})
         }).catch(error => {
-            //console.log(error);
+            console.log(error);
             dispatchAtlassian({type:'BAD_RESULT', status: 'UNRESPONSIVE'});
             retryFetching();
 
@@ -123,7 +127,7 @@ const Status = () => {
         scrapeAtlassian();
     }
 
-    const retryAllScraping = () => {
+    const refreshAllScraping = () => {
         scrapeIterable();
         scrapeAtlassian();
     }
@@ -142,7 +146,7 @@ const Status = () => {
                     loadStatus={atlassianData.responseStatus}
                     />
                     <div style={buttonContainerStyle}>
-                        <button style={buttonStyle} onClick={retryAllScraping}>Refresh</button>
+                        <button style={buttonStyle} onClick={refreshAllScraping}>Refresh</button>
                         {/* <button style={buttonAtlassianStyle} onClick={scrapeAtlassian}>Scrape</button> */}
                     </div>
 
