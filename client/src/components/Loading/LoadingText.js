@@ -1,36 +1,19 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import './Loading.css';
 
-const textStyle={
+const textStyle = {
     color: 'black',
-    fontSize: '25px'
+    fontSize: '20px',
+    paddingLeft: '25px',
+    position: 'relative',
+    top: '10px'
 }
-const LoadingText = (props) => {
-    const [loadingClass, setLoadingClass] = useState('');
-
-    
-    useEffect(()=>{
-        console.log(props.loadStatus)
-        switch (props.loadStatus) {
-            case 'LOADING':
-                setLoadingClass('loading-text');
-                            
-            case 'UNRESPONSIVE':
-                setLoadingClass('bad-text');
-
-            case 'DONE':
-                setLoadingClass('loading-done');
-            default:
-                break;
-        }
-    }, [props.loadStatus])
-
-    return(
- 
-    <span style={textStyle} className={loadingClass}>Fetching results...</span>
-     
-        
+const LoadingText = React.memo((props) => {
+    return (
+        <div>
+            {props.loadStatus !== 'DONE' && <span style={textStyle} className='loading-text'>Fetching results...</span>}
+        </div>
     )
-}
+});
 
 export default LoadingText;

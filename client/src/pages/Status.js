@@ -1,7 +1,6 @@
 import React, { useReducer, useState, useCallback, useEffect, useMemo } from 'react';
 import ResourceList from '../components/Resources/ResourceList';
 import useScraper from '../utils/Scraper';
-import Vendor from '../components/Resources/Vendor';
 import Loading from '../components/Loading/Loading';
 import API from '../utils/API';
 
@@ -42,7 +41,7 @@ const buttonContainerStyle = {
 }
 
 const initAtlassianState = {
-    responseStatus:'',
+    responseStatus:'LOADING',
     data : null
 }
 
@@ -81,8 +80,6 @@ const atlassianReducer = (currentAtlassianState, action) => {
 }
 
 
-
-
 const Status = () => {
 
     const [statuses, dispatch] = useReducer(statusReducer, null);
@@ -103,21 +100,18 @@ const Status = () => {
         }
     }, [scrapeAtlassian, atlassianData.data])
 
-    
-
-
     const scrapeIterable = useCallback(() => {
         scrape();
     }, [scrape]);
 
     const scrapeAtlassian = () => {
-        dispatchAtlassian({type:'GETTING', status: 'LOADING'})
+        dispatchAtlassian({type:'GETTING', status: 'LOADING'});
         API.getAtlassianStatus()
         .then(res => {
-            console.log(res.data);
+            //console.log(res.data);
             dispatchAtlassian({type:'RESPONSE', data: res.data, status:'DONE'})
         }).catch(error => {
-            console.log(error);
+            //console.log(error);
             dispatchAtlassian({type:'BAD_RESULT', status: 'UNRESPONSIVE'});
             retryFetching();
 
@@ -129,6 +123,11 @@ const Status = () => {
         scrapeAtlassian();
     }
 
+    const retryAllScraping = () => {
+        scrapeIterable();
+        scrapeAtlassian();
+    }
+
     return (
         <div style={containerStyle}>
             {isLoading && <Loading />}
@@ -137,16 +136,14 @@ const Status = () => {
                     <ResourceList 
                     data={statuses} 
                     name="Iterable"/>
-                       
                     <ResourceList 
                     data={atlassianData.data} 
                     name="Atlassian"
                     loadStatus={atlassianData.responseStatus}
                     />
-                   
                     <div style={buttonContainerStyle}>
-                        <button style={buttonStyle} onClick={scrapeIterable}>Refresh</button>
-                        <button style={buttonAtlassianStyle} onClick={scrapeAtlassian}>Scrape</button>
+                        <button style={buttonStyle} onClick={retryAllScraping}>Refresh</button>
+                        {/* <button style={buttonAtlassianStyle} onClick={scrapeAtlassian}>Scrape</button> */}
                     </div>
 
                 </div>

@@ -18,6 +18,12 @@ const headerStyle = {
     fontSize: '50px'
 }
 
+const titleStyle = {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center'
+}
+
 
 const ResourceList = props => {
 
@@ -32,7 +38,7 @@ const ResourceList = props => {
 
     useEffect(() => {
         getVendorList();
-        console.log(vendorElements)
+        //console.log(vendorElements)
     }, [getVendorList, vendorData])
 
 
@@ -50,15 +56,13 @@ const ResourceList = props => {
             case 'collapse expand':
                 setCollapse('collapse')
                 break;
-
-
             default:
                 break;
         }
     };
 
     const getVendorList = useCallback(() => {
-        console.log('running getVendorList');
+        //console.log('running getVendorList');
 
         if (props.data !== null) {
 
@@ -77,8 +81,10 @@ const ResourceList = props => {
 
     return (
         <section style={sectionStyle}>
-            <h1 onClick={handleCollapse} style={headerStyle}>{props.name}</h1>
-            {props.loadStatus && <LoadingText loadStatus={props.loadStatus} />}
+            <div style={titleStyle}>
+                <h1 onClick={handleCollapse} style={headerStyle}>{props.name}</h1>
+                {props.loadStatus && <LoadingText loadStatus={props.loadStatus} />}
+            </div>
             <div>
                 <div id="SERVICE-LIST" className={`vendor-services ${collapseClass}`}>
                     <div>

@@ -39,7 +39,7 @@
 
   .loading-done{
    opacity: 0;
-  }
+  } 
   @keyframes lds-ring {
     0% {
       transform: rotate(0deg);
@@ -53,10 +53,10 @@
 
   @keyframes loadingText{
     0%{
-      opacity: 100%;
+      opacity: 1;
     }
     100%{
-      opacity: 50%
+      opacity: .2;
     }
 
 }  
