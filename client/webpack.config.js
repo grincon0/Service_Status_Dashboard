@@ -1,5 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+//const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
     //react entry file path
@@ -32,6 +34,11 @@ module.exports = {
 
         ]
     },
+   /*  optimization: {
+        minimizer: [
+          new UglifyJsPlugin()
+        ]
+      }, */
     resolve: {
         extensions: ['*', '.js', 'jsx']
     },
@@ -44,7 +51,14 @@ module.exports = {
         //builds the index.html file after bundling
         new HtmlWebpackPlugin({
             template: './src/index.html'
+        }),
+        new TerserPlugin({
+            parallel: true,
+            terserOptions: {
+                ecma: 7,
+            }
         })
+
     ]
 
 
